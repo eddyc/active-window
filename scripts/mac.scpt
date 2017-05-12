@@ -10,4 +10,10 @@ tell application "System Events"
 		end tell
 	end tell
 end tell
-return {frontAppName,windowTitle}
+
+set thePath to ""
+try	tell application (path to frontmost application as text)		set thePath to (path of document 1) as text	end tellon error	try		tell application "System Events" to tell (process 1 where frontmost is true)			set thePath to value of attribute "AXDocument" of window 1		end tell
+	end tryend try
+
+
+return {frontAppName,thePath}

@@ -26,7 +26,7 @@ exports.getActiveWindow = function(callback,repeats,interval){
 
   parameters  = config.parameters;
   parameters.push(repeats);
-  parameters.push(process.platform == 'win32' ? (interval * 1000 | 0) : interval);
+  parameters.push(interval);
 
   //Run shell script
   const ls  = spawn(config.bin,parameters);
@@ -39,7 +39,9 @@ exports.getActiveWindow = function(callback,repeats,interval){
 
   //Obtain error response from script
   ls.stderr.on("data",function(stderr){
-   throw stderr.toString();
+
+      console.log(stderr.toString());
+   // throw stderr.toString();
   });
 
   ls.stdin.end();
